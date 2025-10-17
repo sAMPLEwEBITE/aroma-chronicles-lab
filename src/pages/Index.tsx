@@ -1,77 +1,107 @@
 import { Mail, Phone, MapPin, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { useState } from "react";
 import heroImage from "@/assets/hero-candles.jpg";
+import chocolateIceCream from "@/assets/candles/chocolate-ice-cream.jpg";
+import strawberryIceCream from "@/assets/candles/strawberry-ice-cream.jpg";
+import blueberryIceCream from "@/assets/candles/blueberry-ice-cream.jpg";
+import flower from "@/assets/candles/flower.jpg";
+import greenGarden from "@/assets/candles/green-garden.jpg";
+import loveHeart from "@/assets/candles/love-heart.jpg";
+import miniJarSet from "@/assets/candles/mini-jar-set.jpg";
+import chocolateCup from "@/assets/candles/chocolate-cup.jpg";
+import coffeeBeans from "@/assets/candles/coffee-beans.jpg";
+import blueDaisy from "@/assets/candles/blue-daisy.jpg";
+import goldenDaisy from "@/assets/candles/golden-daisy.jpg";
+import blueberryBowl from "@/assets/candles/blueberry-bowl.jpg";
+import coffeeHeart from "@/assets/candles/coffee-heart.jpg";
 
 const candles = [
   {
     name: "MINI CHOCOLATE ICE CREAM",
     fragrance: "Rich Chocolate",
     description: "Indulgent chocolate aroma that brings sweet comfort to any space.",
+    image: chocolateIceCream,
   },
   {
     name: "MINI STRAWBERRY ICE CREAM",
     fragrance: "Fresh Strawberry",
     description: "Sweet strawberry scent reminiscent of summer days and fresh berries.",
+    image: strawberryIceCream,
   },
   {
     name: "MINI BLUEBERRY ICE CREAM",
     fragrance: "Wild Blueberry",
     description: "Delightful blueberry fragrance with hints of creamy sweetness.",
+    image: blueberryIceCream,
   },
   {
     name: "MINI FLOWER",
     fragrance: "Garden Bouquet",
     description: "Soft floral blend bringing the freshness of a spring garden indoors.",
+    image: flower,
   },
   {
     name: "MINI GREEN GARDEN",
     fragrance: "Fresh Herbs & Greenery",
     description: "Crisp garden scent with notes of fresh herbs and green leaves.",
+    image: greenGarden,
   },
   {
     name: "MINI LOVE HEART",
     fragrance: "Rose & Vanilla",
     description: "Romantic blend of soft rose petals and warm vanilla notes.",
+    image: loveHeart,
   },
   {
     name: "Set of 6 Mini Jar",
     fragrance: "Assorted Collection",
     description: "Perfect variety set featuring our most popular mini candle fragrances.",
+    image: miniJarSet,
   },
   {
     name: "CHOCOLATE ICE CREAM CUP",
     fragrance: "Decadent Chocolate",
     description: "Rich, creamy chocolate scent that fills your home with warmth.",
+    image: chocolateCup,
   },
   {
     name: "ROASTED COFFEE BEANS",
     fragrance: "Fresh Ground Coffee",
     description: "Authentic coffee aroma capturing the essence of freshly roasted beans.",
+    image: coffeeBeans,
   },
   {
     name: "Blue Daisy Flower",
     fragrance: "Wild Daisy",
     description: "Light floral fragrance with fresh, uplifting daisy notes.",
+    image: blueDaisy,
   },
   {
     name: "GOLDEN DAISY FLOWER",
     fragrance: "Sunlit Daisy",
     description: "Bright floral scent bringing sunshine and joy to your space.",
+    image: goldenDaisy,
   },
   {
     name: "MINI BLUEBERRY BOWL",
     fragrance: "Sweet Blueberry",
     description: "Fresh blueberry fragrance with a touch of natural sweetness.",
+    image: blueberryBowl,
   },
   {
     name: "COFFEE HEART",
     fragrance: "Coffee & Cream",
     description: "Warm coffee blend with smooth, creamy undertones.",
+    image: coffeeHeart,
   },
 ];
 
 const Index = () => {
+  const [selectedCandle, setSelectedCandle] = useState<typeof candles[0] | null>(null);
+
   return (
     <div className="min-h-screen bg-background font-inter">
       {/* Navigation */}
@@ -131,21 +161,28 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {candles.map((candle, index) => (
               <Card 
                 key={index} 
-                className="bg-card border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 animate-fade-in"
+                className="group bg-card border-border hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500 hover:-translate-y-3 animate-fade-in cursor-pointer overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => setSelectedCandle(candle)}
               >
-                <CardContent className="p-6 space-y-4">
-                  <div className="h-48 bg-secondary rounded-lg flex items-center justify-center">
-                    <Flame className="h-20 w-20 text-accent/30" />
+                <CardContent className="p-0 space-y-0">
+                  <div className="relative h-80 bg-gradient-to-br from-secondary/50 to-secondary overflow-hidden">
+                    <img 
+                      src={candle.image} 
+                      alt={candle.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-playfair font-semibold text-foreground">{candle.name}</h3>
-                    <p className="text-sm font-medium text-accent">{candle.fragrance}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{candle.description}</p>
+                  <div className="p-6 space-y-3">
+                    <h3 className="text-xl font-playfair font-bold text-foreground group-hover:text-accent transition-colors">{candle.name}</h3>
+                    <p className="text-sm font-semibold text-accent uppercase tracking-wide">{candle.fragrance}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{candle.description}</p>
+                    <p className="text-xs text-accent/70 font-medium pt-2">Click to view details →</p>
                   </div>
                 </CardContent>
               </Card>
@@ -154,6 +191,50 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Candle Details Dialog */}
+      <Dialog open={!!selectedCandle} onOpenChange={(open) => !open && setSelectedCandle(null)}>
+        <DialogContent className="sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-playfair text-foreground">{selectedCandle?.name}</DialogTitle>
+            <DialogDescription className="text-base font-semibold text-accent uppercase tracking-wide pt-2">
+              {selectedCandle?.fragrance}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6">
+            <div className="relative h-96 rounded-xl overflow-hidden bg-gradient-to-br from-secondary/50 to-secondary">
+              <img 
+                src={selectedCandle?.image} 
+                alt={selectedCandle?.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-semibold text-foreground mb-2">About This Candle</h4>
+                <p className="text-muted-foreground leading-relaxed">{selectedCandle?.description}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-1">Material</p>
+                  <p className="text-sm text-muted-foreground">100% Natural Soy Wax</p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-1">Burn Time</p>
+                  <p className="text-sm text-muted-foreground">20-25 Hours</p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-1">Wick Type</p>
+                  <p className="text-sm text-muted-foreground">Cotton Wick</p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-1">Handmade</p>
+                  <p className="text-sm text-muted-foreground">Small Batch</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       {/* About Section */}
       <section id="about" className="py-24 bg-background">
         <div className="container mx-auto px-4">

@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { Mail, Phone, MapPin, Flame, Menu } from "lucide-react";
+import { Mail, Phone, MapPin, Flame, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
+import { useState } from "react";
 import heroImage from "@/assets/hero-candles.jpg";
 import chocolateIceCream from "@/assets/candles/chocolate-ice-cream.jpg";
 import strawberryIceCream from "@/assets/candles/strawberry-ice-cream.jpg";
@@ -20,184 +19,97 @@ import goldenDaisy from "@/assets/candles/golden-daisy.jpg";
 import blueberryBowl from "@/assets/candles/blueberry-bowl.jpg";
 import coffeeHeart from "@/assets/candles/coffee-heart.jpg";
 
-// Replace with your actual Associate/affiliate tag and ASINs
-const AFFILIATE_TAG = "vimwick-21"; // e.g., myshop-21 (India), myshop-20 (US)
-const withAmazonLink = (asin: string) =>
-  `https://www.amazon.in/dp/${asin}?tag=${AFFILIATE_TAG}`;
-
-type Candle = {
-  name: string;
-  fragrance: string;
-  description: string;
-  image: string;
-  amazon?: string; // optional if not yet live on Amazon
-  material?: string;
-  burnTime?: string;
-  wickType?: string;
-  handmade?: string;
-};
-
-const candles: Candle[] = [
+const candles = [
   {
     name: "MINI CHOCOLATE ICE CREAM",
     fragrance: "Rich Chocolate",
     description: "Indulgent chocolate aroma that brings sweet comfort to any space.",
     image: chocolateIceCream,
-    amazon: withAmazonLink("EXAMPLE_ASIN1"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "MINI STRAWBERRY ICE CREAM",
     fragrance: "Fresh Strawberry",
     description: "Sweet strawberry scent reminiscent of summer days and fresh berries.",
     image: strawberryIceCream,
-    amazon: withAmazonLink("EXAMPLE_ASIN2"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "MINI BLUEBERRY ICE CREAM",
     fragrance: "Wild Blueberry",
     description: "Delightful blueberry fragrance with hints of creamy sweetness.",
     image: blueberryIceCream,
-    amazon: withAmazonLink("EXAMPLE_ASIN3"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "MINI FLOWER",
     fragrance: "Garden Bouquet",
     description: "Soft floral blend bringing the freshness of a spring garden indoors.",
     image: flower,
-    amazon: withAmazonLink("EXAMPLE_ASIN4"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "MINI GREEN GARDEN",
     fragrance: "Fresh Herbs & Greenery",
     description: "Crisp garden scent with notes of fresh herbs and green leaves.",
     image: greenGarden,
-    amazon: withAmazonLink("EXAMPLE_ASIN5"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "MINI LOVE HEART",
     fragrance: "Rose & Vanilla",
     description: "Romantic blend of soft rose petals and warm vanilla notes.",
     image: loveHeart,
-    amazon: withAmazonLink("EXAMPLE_ASIN6"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "Set of 6 Mini Jar",
     fragrance: "Assorted Collection",
     description: "Perfect variety set featuring our most popular mini candle fragrances.",
     image: miniJarSet,
-    amazon: withAmazonLink("EXAMPLE_ASIN7"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "CHOCOLATE ICE CREAM CUP",
     fragrance: "Decadent Chocolate",
     description: "Rich, creamy chocolate scent that fills your home with warmth.",
     image: chocolateCup,
-    amazon: withAmazonLink("EXAMPLE_ASIN8"),
-    material: "100% Natural Soy Wax",
-    burnTime: "25-30 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "ROASTED COFFEE BEANS",
     fragrance: "Fresh Ground Coffee",
     description: "Authentic coffee aroma capturing the essence of freshly roasted beans.",
     image: coffeeBeans,
-    amazon: withAmazonLink("EXAMPLE_ASIN9"),
-    material: "100% Natural Soy Wax",
-    burnTime: "25-30 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "Blue Daisy Flower",
     fragrance: "Wild Daisy",
     description: "Light floral fragrance with fresh, uplifting daisy notes.",
     image: blueDaisy,
-    amazon: withAmazonLink("EXAMPLE_ASIN10"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "GOLDEN DAISY FLOWER",
     fragrance: "Sunlit Daisy",
     description: "Bright floral scent bringing sunshine and joy to your space.",
     image: goldenDaisy,
-    amazon: withAmazonLink("EXAMPLE_ASIN11"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "MINI BLUEBERRY BOWL",
     fragrance: "Sweet Blueberry",
     description: "Fresh blueberry fragrance with a touch of natural sweetness.",
     image: blueberryBowl,
-    amazon: withAmazonLink("EXAMPLE_ASIN12"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
   {
     name: "COFFEE HEART",
     fragrance: "Coffee & Cream",
     description: "Warm coffee blend with smooth, creamy undertones.",
     image: coffeeHeart,
-    amazon: withAmazonLink("EXAMPLE_ASIN13"),
-    material: "100% Natural Soy Wax",
-    burnTime: "20-25 Hours",
-    wickType: "Cotton Wick",
-    handmade: "Small Batch",
   },
 ];
 
-const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#collection", label: "Collection" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
-];
-
 const Index = () => {
-  const [selectedCandle, setSelectedCandle] = useState<Candle | null>(null);
+  const [selectedCandle, setSelectedCandle] = useState<typeof candles[0] | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleScrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  const navLinks = [
+    { href: "#home", label: "Home" },
+    { href: "#collection", label: "Collection" },
+    { href: "#about", label: "About" },
+    { href: "#contact", label: "Contact" },
+  ];
 
   return (
     <div className="min-h-screen bg-background font-inter">
@@ -208,18 +120,14 @@ const Index = () => {
             <Flame className="h-5 w-5 md:h-6 md:w-6 text-accent" />
             <h1 className="text-lg md:text-xl font-playfair font-bold text-foreground">Vimi Wick</h1>
           </div>
-
+          
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-8">
             {navLinks.map((link) => (
-              <a
+              <a 
                 key={link.href}
-                href={link.href}
+                href={link.href} 
                 className="text-foreground hover:text-accent transition-colors"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleScrollTo(link.href.replace("#", ""));
-                }}
               >
                 {link.label}
               </a>
@@ -229,7 +137,7 @@ const Index = () => {
           {/* Mobile Navigation */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open menu">
+              <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
@@ -240,11 +148,7 @@ const Index = () => {
                     key={link.href}
                     href={link.href}
                     className="text-lg font-medium text-foreground hover:text-accent transition-colors"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setMobileMenuOpen(false);
-                      handleScrollTo(link.href.replace("#", ""));
-                    }}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.label}
                   </a>
@@ -267,20 +171,19 @@ const Index = () => {
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg">
                 Discover our collection of artisanal scented candles, carefully crafted using natural ingredients to bring warmth and ambiance to your home.
               </p>
-              <Button
-                size="lg"
+              <Button 
+                size="lg" 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant transition-all hover:scale-105 w-full sm:w-auto"
-                onClick={() => handleScrollTo("collection")}
+                onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Explore Our Collection
               </Button>
             </div>
             <div className="animate-scale-in order-first md:order-last">
-              <img
-                src={heroImage}
-                alt="Beautiful handcrafted scented candles"
+              <img 
+                src={heroImage} 
+                alt="Beautiful handcrafted scented candles" 
                 className="rounded-2xl md:rounded-3xl shadow-elegant w-full h-auto"
-                loading="lazy"
               />
             </div>
           </div>
@@ -296,61 +199,29 @@ const Index = () => {
               Each candle is hand-poured with premium soy wax and infused with carefully selected fragrances to create the perfect atmosphere.
             </p>
           </div>
-
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
             {candles.map((candle, index) => (
-              <Card
-                key={candle.name}
+              <Card 
+                key={index} 
                 className="group bg-card border-border hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500 md:hover:-translate-y-3 animate-fade-in cursor-pointer overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => setSelectedCandle(candle)}
               >
                 <CardContent className="p-0 space-y-0">
                   <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-secondary/50 to-secondary overflow-hidden">
-                    <img
-                      src={candle.image}
+                    <img 
+                      src={candle.image} 
                       alt={candle.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   <div className="p-4 md:p-6 space-y-2 md:space-y-3">
-                    <h3 className="text-lg md:text-xl font-playfair font-bold text-foreground group-hover:text-accent transition-colors">
-                      {candle.name}
-                    </h3>
+                    <h3 className="text-lg md:text-xl font-playfair font-bold text-foreground group-hover:text-accent transition-colors">{candle.name}</h3>
                     <p className="text-xs md:text-sm font-semibold text-accent uppercase tracking-wide">{candle.fragrance}</p>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                      {candle.description}
-                    </p>
-                    {candle.amazon && (
-                      <a
-                        href={candle.amazon}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block w-full"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="w-full border-accent text-accent hover:bg-accent hover:text-primary mt-2"
-                        >
-                          Buy on Amazon
-                        </Button>
-                      </a>
-                    )}
-                    {!candle.amazon && (
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="w-full mt-2 cursor-not-allowed opacity-60"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-disabled
-                      >
-                        Coming Soon
-                      </Button>
-                    )}
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed line-clamp-2">{candle.description}</p>
+                    <p className="text-xs text-accent/70 font-medium pt-1 md:pt-2">Click to view details →</p>
                   </div>
                 </CardContent>
               </Card>
@@ -370,7 +241,11 @@ const Index = () => {
           </DialogHeader>
           <div className="space-y-4 md:space-y-6">
             <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden bg-gradient-to-br from-secondary/50 to-secondary">
-              <img src={selectedCandle?.image} alt={selectedCandle?.name} className="w-full h-full object-cover" loading="lazy" />
+              <img 
+                src={selectedCandle?.image} 
+                alt={selectedCandle?.name}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="space-y-3 md:space-y-4">
               <div>
@@ -380,47 +255,40 @@ const Index = () => {
               <div className="grid grid-cols-2 gap-3 md:gap-4 pt-3 md:pt-4 border-t border-border">
                 <div>
                   <p className="text-xs md:text-sm font-semibold text-foreground mb-1">Material</p>
-                  <p className="text-xs md:text-sm text-muted-foreground">{selectedCandle?.material ?? "100% Natural Soy Wax"}</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">100% Natural Soy Wax</p>
                 </div>
                 <div>
                   <p className="text-xs md:text-sm font-semibold text-foreground mb-1">Burn Time</p>
-                  <p className="text-xs md:text-sm text-muted-foreground">{selectedCandle?.burnTime ?? "20-25 Hours"}</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">20-25 Hours</p>
                 </div>
                 <div>
                   <p className="text-xs md:text-sm font-semibold text-foreground mb-1">Wick Type</p>
-                  <p className="text-xs md:text-sm text-muted-foreground">{selectedCandle?.wickType ?? "Cotton Wick"}</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Cotton Wick</p>
                 </div>
                 <div>
                   <p className="text-xs md:text-sm font-semibold text-foreground mb-1">Handmade</p>
-                  <p className="text-xs md:text-sm text-muted-foreground">{selectedCandle?.handmade ?? "Small Batch"}</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Small Batch</p>
                 </div>
               </div>
-              {selectedCandle?.amazon ? (
-                <a href={selectedCandle.amazon} target="_blank" rel="noopener noreferrer" className="block">
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-4">
-                    Buy on Amazon
-                  </Button>
-                </a>
-              ) : (
-                <Button className="w-full mt-4" variant="secondary" aria-disabled>
-                  Coming Soon
-                </Button>
-              )}
             </div>
           </div>
         </DialogContent>
       </Dialog>
-
       {/* About Section */}
       <section id="about" className="py-12 md:py-20 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 md:space-y-6">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold text-foreground">Our Story</h2>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              Vimi Wick was born from a passion for creating beautiful, sustainable home fragrances. Every candle is handcrafted in small batches using 100% natural soy wax, premium fragrance oils, and cotton wicks. We believe in quality over quantity, ensuring each candle meets our high standards for scent throw and burn time.
+              Vimi Wick was born from a passion for creating beautiful, sustainable home fragrances. 
+              Every candle is handcrafted in small batches using 100% natural soy wax, premium fragrance oils, 
+              and cotton wicks. We believe in quality over quantity, ensuring each candle meets our high standards 
+              for scent throw and burn time.
             </p>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              Our commitment to sustainability means we use eco-friendly packaging and source our materials responsibly. When you light a Vimi Wick candle, you're not just illuminating your space – you're supporting artisanal craftsmanship and environmentally conscious practices.
+              Our commitment to sustainability means we use eco-friendly packaging and source our materials responsibly. 
+              When you light a Vimi Wick candle, you're not just illuminating your space – you're supporting 
+              artisanal craftsmanship and environmentally conscious practices.
             </p>
           </div>
         </div>
@@ -434,21 +302,18 @@ const Index = () => {
             <p className="text-base md:text-lg text-muted-foreground px-4">
               Have questions about our candles or want to place a custom order? We'd love to hear from you!
             </p>
-
+            
             <div className="grid sm:grid-cols-3 gap-6 md:gap-8 pt-6 md:pt-8">
               <div className="flex flex-col items-center space-y-2 md:space-y-3">
                 <div className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-accent/10 flex items-center justify-center">
                   <Mail className="h-5 w-5 md:h-6 md:w-6 text-accent" />
                 </div>
                 <h3 className="font-semibold text-foreground text-sm md:text-base">Email</h3>
-                <a
-                  href="mailto:hello@pureglowcandles.com"
-                  className="text-muted-foreground hover:text-accent transition-colors text-xs md:text-sm text-center break-all px-2"
-                >
+                <a href="mailto:hello@pureglowcandles.com" className="text-muted-foreground hover:text-accent transition-colors text-xs md:text-sm text-center break-all px-2">
                   hello@pureglowcandles.com
                 </a>
               </div>
-
+              
               <div className="flex flex-col items-center space-y-2 md:space-y-3">
                 <div className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-accent/10 flex items-center justify-center">
                   <Phone className="h-5 w-5 md:h-6 md:w-6 text-accent" />
@@ -458,13 +323,15 @@ const Index = () => {
                   (123) 456-7890
                 </a>
               </div>
-
+              
               <div className="flex flex-col items-center space-y-2 md:space-y-3">
                 <div className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-accent/10 flex items-center justify-center">
                   <MapPin className="h-5 w-5 md:h-6 md:w-6 text-accent" />
                 </div>
                 <h3 className="font-semibold text-foreground text-sm md:text-base">Location</h3>
-                <p className="text-muted-foreground text-xs md:text-sm">Based in Your City</p>
+                <p className="text-muted-foreground text-xs md:text-sm">
+                  Based in Your City
+                </p>
               </div>
             </div>
           </div>
@@ -478,7 +345,9 @@ const Index = () => {
             <Flame className="h-4 w-4 md:h-5 md:w-5" />
             <p className="font-playfair font-semibold text-sm md:text-base">Vimi Wick</p>
           </div>
-          <p className="text-xs md:text-sm opacity-80">Handcrafted with love © {new Date().getFullYear()}</p>
+          <p className="text-xs md:text-sm opacity-80">
+            Handcrafted with love © {new Date().getFullYear()}
+          </p>
         </div>
       </footer>
     </div>

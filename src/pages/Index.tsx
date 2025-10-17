@@ -5,44 +5,69 @@ import heroImage from "@/assets/hero-candles.jpg";
 
 const candles = [
   {
-    name: "Lavender Dreams",
-    fragrance: "Lavender & Chamomile",
-    description: "Calming blend perfect for relaxation and peaceful evenings. Pure lavender essence with hints of chamomile.",
+    name: "MINI CHOCOLATE ICE CREAM",
+    fragrance: "Rich Chocolate",
+    description: "Indulgent chocolate aroma that brings sweet comfort to any space.",
   },
   {
-    name: "Vanilla Bliss",
-    fragrance: "Madagascar Vanilla",
-    description: "Rich, warm vanilla that fills your space with comfort and sweetness. A timeless classic.",
+    name: "MINI STRAWBERRY ICE CREAM",
+    fragrance: "Fresh Strawberry",
+    description: "Sweet strawberry scent reminiscent of summer days and fresh berries.",
   },
   {
-    name: "Ocean Breeze",
-    fragrance: "Sea Salt & Driftwood",
-    description: "Fresh coastal scent bringing the serenity of ocean waves into your home.",
+    name: "MINI BLUEBERRY ICE CREAM",
+    fragrance: "Wild Blueberry",
+    description: "Delightful blueberry fragrance with hints of creamy sweetness.",
   },
   {
-    name: "Citrus Grove",
-    fragrance: "Lemon & Bergamot",
-    description: "Energizing citrus blend that uplifts and refreshes any room with natural zest.",
+    name: "MINI FLOWER",
+    fragrance: "Garden Bouquet",
+    description: "Soft floral blend bringing the freshness of a spring garden indoors.",
   },
   {
-    name: "Forest Whisper",
-    fragrance: "Pine & Cedar",
-    description: "Earthy woodland scent evoking peaceful walks through evergreen forests.",
+    name: "MINI GREEN GARDEN",
+    fragrance: "Fresh Herbs & Greenery",
+    description: "Crisp garden scent with notes of fresh herbs and green leaves.",
   },
   {
-    name: "Cinnamon Spice",
-    fragrance: "Cinnamon & Clove",
-    description: "Warm spicy notes creating a cozy atmosphere perfect for cool evenings.",
+    name: "MINI LOVE HEART",
+    fragrance: "Rose & Vanilla",
+    description: "Romantic blend of soft rose petals and warm vanilla notes.",
   },
   {
-    name: "Rose Garden",
-    fragrance: "Rose Petals & Peony",
-    description: "Delicate floral bouquet bringing the elegance of a blooming garden indoors.",
+    name: "Set of 6 Mini Jar",
+    fragrance: "Assorted Collection",
+    description: "Perfect variety set featuring our most popular mini candle fragrances.",
   },
   {
-    name: "Amber Glow",
-    fragrance: "Amber & Sandalwood",
-    description: "Sophisticated woody fragrance with warm amber notes for luxurious ambiance.",
+    name: "CHOCOLATE ICE CREAM CUP",
+    fragrance: "Decadent Chocolate",
+    description: "Rich, creamy chocolate scent that fills your home with warmth.",
+  },
+  {
+    name: "ROASTED COFFEE BEANS",
+    fragrance: "Fresh Ground Coffee",
+    description: "Authentic coffee aroma capturing the essence of freshly roasted beans.",
+  },
+  {
+    name: "Blue Daisy Flower",
+    fragrance: "Wild Daisy",
+    description: "Light floral fragrance with fresh, uplifting daisy notes.",
+  },
+  {
+    name: "GOLDEN DAISY FLOWER",
+    fragrance: "Sunlit Daisy",
+    description: "Bright floral scent bringing sunshine and joy to your space.",
+  },
+  {
+    name: "MINI BLUEBERRY BOWL",
+    fragrance: "Sweet Blueberry",
+    description: "Fresh blueberry fragrance with a touch of natural sweetness.",
+  },
+  {
+    name: "COFFEE HEART",
+    fragrance: "Coffee & Cream",
+    description: "Warm coffee blend with smooth, creamy undertones.",
   },
 ];
 
@@ -54,7 +79,7 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Flame className="h-6 w-6 text-accent" />
-            <h1 className="text-xl font-playfair font-bold text-foreground">Pure Glow Candles</h1>
+            <h1 className="text-xl font-playfair font-bold text-foreground">Vimi Wick</h1>
           </div>
           <div className="hidden md:flex gap-8">
             <a href="#home" className="text-foreground hover:text-accent transition-colors">Home</a>
@@ -135,14 +160,14 @@ const Index = () => {
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <h2 className="text-4xl md:text-5xl font-playfair font-bold text-foreground">Our Story</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Pure Glow Candles was born from a passion for creating beautiful, sustainable home fragrances. 
+              Vimi Wick was born from a passion for creating beautiful, sustainable home fragrances. 
               Every candle is handcrafted in small batches using 100% natural soy wax, premium fragrance oils, 
               and cotton wicks. We believe in quality over quantity, ensuring each candle meets our high standards 
               for scent throw and burn time.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Our commitment to sustainability means we use eco-friendly packaging and source our materials responsibly. 
-              When you light a Pure Glow candle, you're not just illuminating your space – you're supporting 
+              When you light a Vimi Wick candle, you're not just illuminating your space – you're supporting 
               artisanal craftsmanship and environmentally conscious practices.
             </p>
           </div>
@@ -198,7 +223,7 @@ const Index = () => {
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Flame className="h-5 w-5" />
-            <p className="font-playfair font-semibold">Pure Glow Candles</p>
+            <p className="font-playfair font-semibold">Vimi Wick</p>
           </div>
           <p className="text-sm opacity-80">
             Handcrafted with love © {new Date().getFullYear()}
